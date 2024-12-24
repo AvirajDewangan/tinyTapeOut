@@ -7,7 +7,7 @@
    // #                                                      #
    // #  Empty template for Tiny Tapeout Makerchip Projects  #
    // #                                                      #
-   // ######################################################## 
+   // ########################################################
    
    // ========
    // Settings
@@ -194,7 +194,8 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
 
    //----------------------------------------------------------controller--------------------------------------------------
 
-       always @(posedge clk or posedge reset or posedge start) begin
+       //always @(posedge clk or posedge reset or posedge start) begin
+       always @(posedge clk) begin
            //synthesizable INITIAL BLOCK
            if(reset)
                //when reset is high the value of all the registers changes to zero (DEFAULT VALUE)
@@ -388,7 +389,8 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
        reg [11:0] counter1 ;
        reg [31:0] counter2 ;
 
-       always @(posedge clk or posedge reset) begin
+       //always @(posedge clk or posedge reset) begin
+       always @(posedge clk) begin
            if(state_var == 3'b0)
               spinning <= 1'b0;
            else 
