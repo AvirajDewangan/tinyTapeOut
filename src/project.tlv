@@ -508,13 +508,13 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
-                                                       heating <= 1'b0;
+                                                       //heating <= 1'b0;
                                                    end
                                                else
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       heating <= 1'b0;
+                                                       //heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd1 && level==2'd2)
@@ -523,13 +523,13 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
-                                                       heating <= 1'b0;
+                                                       //heating <= 1'b0;
                                                    end
                                                else
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       heating <= 1'b0;
+                                                       //heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd1 && level==2'd3)
@@ -538,13 +538,13 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
-                                                       heating <= 1'b0;
+                                                       //heating <= 1'b0;
                                                    end
                                                else
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       heating <= 1'b0;
+                                                       //heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd2 && level==2'd1)
@@ -685,7 +685,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                            begin
                                if((counter1 == 12'b0) && (!rinse_status))
                                    begin
-                                       counter1 = 12'd2;
+                                       counter1 = 12'd70;
                                        rinse_status <= 1'b1;
                                    end
                                else if((counter1 != 12'b0) && (counter2 == 32'b0))
@@ -697,7 +697,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                            begin
                                if((counter1 == 12'b0) && (!dry_status))
                                    begin
-                                       counter1 = 12'd2;
+                                       counter1 = 12'd70;
                                        dry_status <= 1'b1;
                                    end
                                else if((counter1 != 12'b0) && (counter2 == 32'b0))
