@@ -123,10 +123,10 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
        input low,
        input med,
        input hig,
-       output reg heating,
-       output reg spinning, 
-       output reg pouring,
-       output reg waiting 
+       output wire heating_op,
+       output wire spinning_op, 
+       output wire pouring_op,
+       output wire waiting_op 
    );
 
    /*
@@ -197,6 +197,21 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
        reg dry_status;             //provide drying status for counter
 
        reg [11:0] max_count;
+
+       reg heating ;
+
+       reg waiting ;
+
+       reg pouring ;
+
+       reg spinning ;
+
+   //---------------------------------------------------------assigning outputs--------------------------------------------
+
+   heating_op =  heating;
+   waiting_op = waiting;
+   pouring_op = pouring;
+   spinning_op = spinning;
 
    //----------------------------------------------------------controller--------------------------------------------------
    // pragma 
@@ -792,7 +807,7 @@ module m5_user_module_name (
 
    reg waiting, heating, spinning, pouring;
    wire start = ui_in[0], low = ui_in[1], med = ui_in[2], hig = ui_in[3];
-   assign uo_out = {4'b0, waiting, heating, spinning, pouring};
+   assign uo_out = {4'b0, waiting_op, heating_op, spinning_op, pouring_op};
    Controller Controller(.*);
 \SV
 endmodule
