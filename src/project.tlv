@@ -209,9 +209,9 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
    //---------------------------------------------------------assigning outputs--------------------------------------------
 
    assign heating_op =  heating;
-   assing waiting_op = waiting;
-   assing pouring_op = pouring;
-   assing spinning_op = spinning;
+   assign waiting_op = waiting;
+   assign pouring_op = pouring;
+   assign spinning_op = spinning;
 
    //----------------------------------------------------------controller--------------------------------------------------
    // pragma 
