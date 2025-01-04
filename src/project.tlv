@@ -407,7 +407,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                counter2 <= 32'b0;
                max_count <= 12'b0;
                pouring <= internal_0;
-               heating <= internal_0;
+               //heating <= internal_0;
                spinning <= internal_0;
                rinse_status <= 1'b0;
                dry_status <= 1'b0;
