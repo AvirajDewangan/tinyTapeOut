@@ -805,7 +805,7 @@ module m5_user_module_name (
    // ==========================================
    
 
-   reg waiting, heating, spinning, pouring;
+   wire waiting_op, heating_op, spinning_op, pouring_op;
    wire start = ui_in[0], low = ui_in[1], med = ui_in[2], hig = ui_in[3];
    assign uo_out = {4'b0, waiting_op, heating_op, spinning_op, pouring_op};
    Controller Controller(.*);
