@@ -141,10 +141,10 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
        input low,
        input med,
        input hig,
-       output reg heating,
-       output reg spinning, 
-       output reg pouring,
-       output reg waiting 
+       output heating_op,
+       output spinning_op, 
+       output pouring_op,
+       output waiting_op 
    );
 
    /*
@@ -159,6 +159,13 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
        always @(next_state_var) begin
            state_var <= next_state_var;    //transfers the state values for the next state
        end
+      
+   //--------------------------------------------------------output variables----------------------------------------------
+      
+      reg heating;
+      reg pouring;
+      reg waiting;
+      reg spinning;
 
    //--------------------------------------------------------state values--------------------------------------------------
 
@@ -526,7 +533,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
-                                                       heating <= 1'b1;
+                                                       heating <= 1'b0;
                                                    end
                                                else
                                                    begin
@@ -753,6 +760,12 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
            counter_status <= 2'b0;
 
        end
+     
+       //OUTPUT ASSIGNMENT 
+       assign heating_op = heating;
+       assign pouring_op = pouring;
+       assign waiting_op = waiting;
+       assign spinning_op = spinning;
 
    endmodule
 
@@ -790,9 +803,9 @@ module m5_user_module_name (
    // ==========================================
    
 
-   reg waiting, heating, spinning, pouring;
+   reg waiting_op, heating_op, spinning_op, pouring_op;
    wire start = ui_in[0], low = ui_in[1], med = ui_in[2], hig = ui_in[3];
-   assign uo_out = {4'b0, waiting, heating, spinning, pouring};
+   assign uo_out = {4'b0, waiting_op, heating_op, spinning_op, pouring_op};
    Controller Controller(.*);
 \SV
 endmodule
