@@ -160,20 +160,20 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
 
    //--------------------------------------------------------parameters---------------------------------------------------
 
-       parameter med_heating = 12'd35; //enter med heating time => depends on temp     => 2.5 mins
-       parameter hig_heating = 12'd70; //enter hig heating time => depends on temp     => 5 mins
-       parameter low_pouring = 12'd28; //enter low pouring time => depends on level    => 2 mins
-       parameter med_pouring = 12'd42; //enter med pouring time => depends on level    => 3 mins
-       parameter hig_pouring = 12'd56; //enter hig pouring time => depends on level    => 4 mins
+       parameter med_heating = 12'd2; // 12'd35; //enter med heating time => depends on temp     => 2.5 mins
+       parameter hig_heating = 12'd4; // 12'd70; //enter hig heating time => depends on temp     => 5 mins
+       parameter low_pouring = 12'd2; // 12'd28; //enter low pouring time => depends on level    => 2 mins
+       parameter med_pouring = 12'd4; // 12'd42; //enter med pouring time => depends on level    => 3 mins
+       parameter hig_pouring = 12'd6;// 12'd56; //enter hig pouring time => depends on level    => 4 mins
        /*
            proper time assignment is left that should be done here 
            low timer => 5 mins 
            med timer => 15 mins 
            hig timer => 30 mins
        */
-       parameter low_timer = 12'd70; //enter time for low duration wash => depends on timer
-       parameter med_timer = 12'd210; //enter time for low duration wash => depends on timer
-       parameter hig_timer = 12'd420; //enter time for low duration wash => depends on timer
+       parameter low_timer = 12'd8; // 12'd70; //enter time for low duration wash => depends on timer
+       parameter med_timer = 12'd10; // 12'd210; //enter time for low duration wash => depends on timer
+       parameter hig_timer = 12'd12; // 12'd420; //enter time for low duration wash => depends on timer
 
 
    //-------------------------------------------------------input_for_states-----------------------------------------------
