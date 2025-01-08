@@ -731,7 +731,13 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                    counter1 = counter1;
                            end
                        default:
-                           counter1 = counter1;
+                          begin 
+                             counter1 = counter1;
+                      		  heating <= 1'b0;
+                             pouring <= 1'b0;
+                      		  waiting <= 1'b0;
+                      		  spinning <= 1'b0;
+                          end
                    endcase
 
                    if((counter1 != 12'b0)  && (counter2 != 32'b0))
