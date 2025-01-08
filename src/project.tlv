@@ -123,10 +123,10 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
        input low,
        input med,
        input hig,
-       //output reg heating,
-       output reg spinning, 
-       output reg pouring,
-       output reg waiting 
+       output heating_op,
+       output spinning_op, 
+       output pouring_op,
+       output waiting_op 
    );
 
    /*
@@ -141,7 +141,11 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
        always @(next_state_var) begin
            state_var <= next_state_var;    //transfers the state values for the next state
        end
-
+   
+   //-------------------------------------------------------output variable------------------------------------------------
+      
+      reg heating, pouring, spinning, waiting; //these registers will store the values of the outputs temporarily
+      
    //--------------------------------------------------------state values--------------------------------------------------
 
        //these variables holds the value of the state variable for comparison
@@ -401,7 +405,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                counter2 <= 32'b0;
                max_count <= 12'b0;
                pouring <= 1'b0;
-               //heating <= 1'b0;
+               heating <= 1'b0;
                spinning <= 1'b0;
                rinse_status <= 1'b0;
                dry_status <= 1'b0;
@@ -508,13 +512,13 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                                else
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd1 && level==2'd2)
@@ -523,13 +527,13 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                                else
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd1 && level==2'd3)
@@ -538,26 +542,26 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                                else
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd2 && level==2'd1)
                                            begin
                                                if((max_count - counter1) <= med_heating )
                                                    begin
-                                                       //heating <= 1'b1;
+                                                       heating <= 1'b1;
                                                        spinning <= 1'b0;
                                                        pouring <= 1'b0;
                                                    end
                                                else if((max_count - counter1) <= (med_heating + low_pouring) )
                                                    begin
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
                                                    end
@@ -565,20 +569,20 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd2 && level==2'd2)
                                            begin
                                                if((max_count - counter1) <= med_heating )
                                                    begin
-                                                       //heating <= 1'b1;
+                                                       heating <= 1'b1;
                                                        spinning <= 1'b0;
                                                        pouring <= 1'b0;
                                                    end
                                                else if((max_count - counter1) <= (med_heating + med_pouring))
                                                    begin
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
                                                    end
@@ -586,20 +590,20 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd2 && level==2'd3)
                                            begin
                                                if((max_count - counter1) <= med_heating )
                                                    begin
-                                                       //heating <= 1'b1;
+                                                       heating <= 1'b1;
                                                        spinning <= 1'b0;
                                                        pouring <= 1'b0;
                                                    end
                                                else if((max_count - counter1) <= (med_heating + hig_pouring) )
                                                    begin
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
                                                    end
@@ -607,20 +611,20 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd3 && level==2'd1)
                                            begin
                                                if((max_count - counter1) <= hig_heating )
                                                    begin
-                                                       //heating <= 1'b1;
+                                                       heating <= 1'b1;
                                                        spinning <= 1'b0;
                                                        pouring <= 1'b0;
                                                    end
                                                else if((max_count - counter1) <= (hig_heating + low_pouring) )
                                                    begin
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
                                                    end
@@ -628,20 +632,20 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd3 && level==2'd2)
                                            begin
                                                if((max_count - counter1) <= hig_heating)
                                                    begin
-                                                       //heating <= 1'b1;
+                                                       heating <= 1'b1;
                                                        spinning <= 1'b0;
                                                        pouring <= 1'b0;
                                                    end
                                                else if((max_count - counter1) <= (hig_heating + med_pouring))
                                                    begin
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
                                                    end
@@ -649,20 +653,20 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                            end
                                        else if(temp==2'd3 && level==2'd3)
                                            begin
                                                if((max_count - counter1) <= hig_heating)
                                                    begin
-                                                       //heating <= 1'b1;
+                                                       heating <= 1'b1;
                                                        spinning <= 1'b0;
                                                        pouring <= 1'b0;
                                                    end
                                                else if((max_count - counter1) <= (hig_heating + hig_pouring))
                                                    begin
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
                                                    end
@@ -670,13 +674,13 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b0;
                                                        spinning <= 1'b1;
-                                                       //heating <= 1'b0;
+                                                       heating <= 1'b0;
                                                    end
                                            end
                                        else
                                            begin
                                                pouring <= 1'b0;
-                                               //heating <= 1'b0;
+                                               heating <= 1'b0;
                                                spinning <= 1'b0;
                                            end
                                    end
@@ -735,6 +739,11 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
            counter_status <= 2'b0;
 
        end
+      
+       assign heating_op = heating;
+       assign pouring_op = pouring;
+       assign waiting_op = waiting;
+       assign spinning_op = spinning;
 
    endmodule
 
@@ -772,9 +781,10 @@ module m5_user_module_name (
    // ==========================================
    
 
-   reg waiting, spinning, pouring;
+   reg waiting_op, heating_op, spinning_op, pouring_op;
+   
    wire start = ui_in[0], low = ui_in[1], med = ui_in[2], hig = ui_in[3];
-   assign uo_out = {5'b0, waiting, spinning, pouring};
+   assign uo_out = {4'b0, waiting_op, heating_op, spinning_op, pouring_op};
    Controller Controller(.*);
 \SV
 endmodule
