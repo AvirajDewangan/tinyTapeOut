@@ -526,7 +526,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                                    begin
                                                        pouring <= 1'b1;
                                                        spinning <= 1'b0;
-                                                       heating <= 1'b0;
+                                                       heating <= 1'b1;
                                                    end
                                                else
                                                    begin
