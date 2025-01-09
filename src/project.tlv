@@ -155,7 +155,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
 
        reg [2:0] state_var;                //holds the state values
        reg [2:0] next_state_var;           //holds the next state values 
-
+       reg [2:0] prev_state;
        always @(next_state_var) begin
            state_var <= next_state_var;    //transfers the state values for the next state
        end
@@ -221,6 +221,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
 
        //always @(posedge clk or posedge reset or posedge start) begin
        always @(posedge clk) begin
+           prev_state <= state_var;
            //synthesizable INITIAL BLOCK
            if(reset)
                //when reset is high the value of all the registers changes to zero (DEFAULT VALUE)
@@ -388,7 +389,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                                        Program <= 2'b0;
                                        temp <= 2'b0;
                                        level <= 2'b0;
-                                       counter_status <= 2'b0;
+                                       //counter_status <= 2'b0;
                                        next_state_var <= 3'b0;
                                        //count_done = 1'b0;
                                        //spinning <= 1'b0;
@@ -405,6 +406,7 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
 
                    endcase
                end
+           
        end
 
    //------------------------------------------------------------counter----------------------------------------------------
@@ -753,6 +755,8 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
                        counter_status <= 2'd2;
                    else if((state_var == wash) | (state_var == rinse) | (state_var == dry))
                        counter_status <= 2'b1;
+                   else if(prev_state != state_var)
+                       counter_status <= 2'b0;
                    else
                        counter_status <= 2'b0;
                end
@@ -761,11 +765,11 @@ m5_if(m5_debounce_inputs, ['m5_tt_top(m5_my_design)'])
 
        //reseting the state variable
 
-       always @(state_var) begin
+      /* always @(state_var) begin
 
            counter_status <= 2'b0;
 
-       end
+       end */
      
        //OUTPUT ASSIGNMENT 
        assign heating_op = heating;
